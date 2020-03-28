@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import UserNotifications
+import SamplePackage
 
 class User: ObservableObject {
     @Published var name = "Taylor Swift"
@@ -49,20 +51,84 @@ enum NetworkError: Error {
 }
 
 struct ContentView: View {
+    @State private var backgroundColor = Color.red
     @State private var selectedTab = 0
     @ObservedObject var updater = DelayedUpdater()
     
     let user = User()
+    let possibleNumbers = Array(1...60)
+    
+    var results: String {
+        let selected = possibleNumbers.random(7).sorted()
+        let strings = selected.map(String.init)
+        return strings.joined(separator: ", ")
+    }
     
     var body: some View {
+        Text(results)
+//        VStack {
+//            Text("Hello, World!")
+//                .padding()
+//                .background(backgroundColor)
+//
+//            Text("Change Color")
+//                .padding()
+//                .contextMenu {
+//                    Button(action: {
+//                        self.backgroundColor = .red
+//                    }) {
+//                        Text("Red")
+//                        Image(systemName: "checkmark.circle.fill")
+//                            .foregroundColor(.red)
+//                    }
+//
+//                    Button(action: {
+//                        self.backgroundColor = .green
+//                    }) {
+//                        Text("Green")
+//                    }
+//
+//                    Button(action: {
+//                        self.backgroundColor = .blue
+//                    }) {
+//                        Text("Blue")
+//                    }
+//            }
+//
+//            Button("Request Permission") {
+//                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+//                    if success {
+//                        print("All set!")
+//                    } else if let error = error {
+//                        print(error.localizedDescription)
+//                    }
+//                }
+//            }
+//
+//            Button("Schedule Notification") {
+//                let content = UNMutableNotificationContent()
+//                content.title = "Feed the cat"
+//                content.subtitle = "It looks hungry"
+//                content.sound = UNNotificationSound.default
+//
+//                // show this notification five seconds from now
+//                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//
+//                // choose a random identifier
+//                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+//
+//                // add our notification request
+//                UNUserNotificationCenter.current().add(request)
+//            }
+//        }
 //        Text("Value is: \(updater.value)")
-        Image("example")
-            .interpolation(.none)
-            .resizable()
-            .scaledToFit()
-            .frame(maxHeight: .infinity)
-            .background(Color.black)
-            .edgesIgnoringSafeArea(.all)
+//        Image("example")
+//            .interpolation(.none)
+//            .resizable()
+//            .scaledToFit()
+//            .frame(maxHeight: .infinity)
+//            .background(Color.black)
+//            .edgesIgnoringSafeArea(.all)
 //        VStack {
 //            EditView()
 //            DisplayView()
