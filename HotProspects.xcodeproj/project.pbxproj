@@ -15,6 +15,7 @@
 		358C9C73242D1688005B500F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 358C9C71242D1688005B500F /* LaunchScreen.storyboard */; };
 		35B0D2BB2431044C00ED590D /* ProspectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B0D2BA2431044C00ED590D /* ProspectsView.swift */; };
 		35B0D2BD2431046C00ED590D /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B0D2BC2431046C00ED590D /* MeView.swift */; };
+		35B0D2BF243108E800ED590D /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B0D2BE243108E800ED590D /* Prospect.swift */; };
 		35F77E7F242FFB7C0022A9DE /* SamplePackage in Frameworks */ = {isa = PBXBuildFile; productRef = 35F77E7E242FFB7C0022A9DE /* SamplePackage */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		358C9C74242D1688005B500F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35B0D2BA2431044C00ED590D /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
 		35B0D2BC2431046C00ED590D /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
+		35B0D2BE243108E800ED590D /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,9 +66,10 @@
 			children = (
 				358C9C66242D1687005B500F /* AppDelegate.swift */,
 				358C9C68242D1687005B500F /* SceneDelegate.swift */,
-				358C9C6A242D1687005B500F /* ContentView.swift */,
-				35B0D2BA2431044C00ED590D /* ProspectsView.swift */,
+				35B0D2BE243108E800ED590D /* Prospect.swift */,
 				35B0D2BC2431046C00ED590D /* MeView.swift */,
+				35B0D2BA2431044C00ED590D /* ProspectsView.swift */,
+				358C9C6A242D1687005B500F /* ContentView.swift */,
 				358C9C6C242D1688005B500F /* Assets.xcassets */,
 				358C9C71242D1688005B500F /* LaunchScreen.storyboard */,
 				358C9C74242D1688005B500F /* Info.plist */,
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35B0D2BB2431044C00ED590D /* ProspectsView.swift in Sources */,
+				35B0D2BF243108E800ED590D /* Prospect.swift in Sources */,
 				358C9C67242D1687005B500F /* AppDelegate.swift in Sources */,
 				358C9C69242D1687005B500F /* SceneDelegate.swift in Sources */,
 				358C9C6B242D1687005B500F /* ContentView.swift in Sources */,
