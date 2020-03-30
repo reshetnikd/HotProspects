@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 struct ProspectsView: View {
     enum FilterType {
@@ -14,6 +15,7 @@ struct ProspectsView: View {
     }
     
     @EnvironmentObject var prospects: Prospects
+    @State private var isShowingScanner = false
     
     let filter: FilterType
     
@@ -53,14 +55,35 @@ struct ProspectsView: View {
             }
             .navigationBarTitle(title)
             .navigationBarItems(trailing: Button(action: {
-                let prospect = Prospect()
-                prospect.name = "Paul Hudson"
-                prospect.emailAddress = "paul@hackingwithswift.com"
-                self.prospects.people.append(prospect)
+                self.isShowingScanner = true
+//                let prospect = Prospect()
+//                prospect.name = "Paul Hudson"
+//                prospect.emailAddress = "paul@hackingwithswift.com"
+//                self.prospects.people.append(prospect)
             }) {
                 Image(systemName: "qrcode.viewfinder")
                 Text("Scan")
             })
+            .sheet(isPresented: $isShowingScanner) {
+                CodeScannerView(codeTypes: [.qr], simulatedData: "Dmitry Reshetnik\ndmitry.reshetnik@icloud.cin", completion: self.handleScan)
+            }
+        }
+    }
+    
+    func handleScan(result: Result<String, CodeScannerView.ScanError>) {
+        self.isShowingScanner = false
+        switch result {
+        case .success(let code):
+            let details = code.components(separatedBy: "\n")
+            guard details.count == 2 else { return }
+            
+            let person = Prospect()
+            person.name = details[0]
+            person.emailAddress = details[1]
+            
+            self.prospects.people.append(person)
+        case .failure(let error):
+            print("Scanning failed: \(error.localizedDescription)")
         }
     }
 }
