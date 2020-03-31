@@ -70,7 +70,7 @@ struct ProspectsView: View {
                 Text("Scan")
             })
             .sheet(isPresented: $isShowingScanner) {
-                CodeScannerView(codeTypes: [.qr], simulatedData: "Dmitry Reshetnik\ndmitry.reshetnik@icloud.cin", completion: self.handleScan)
+                CodeScannerView(codeTypes: [.qr], simulatedData: "Dmitry Reshetnik\ndmitry.reshetnik@icloud.com", completion: self.handleScan)
             }
         }
     }
@@ -86,7 +86,7 @@ struct ProspectsView: View {
             person.name = details[0]
             person.emailAddress = details[1]
             
-            self.prospects.people.append(person)
+            self.prospects.add(person)
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
         }
