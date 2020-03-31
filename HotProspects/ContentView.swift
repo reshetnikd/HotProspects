@@ -34,6 +34,7 @@ struct ContentView: View {
                     Text("Me")
                 }
         }
+        .onAppear(perform: prospects.load)
         .environmentObject(prospects)
     }
     

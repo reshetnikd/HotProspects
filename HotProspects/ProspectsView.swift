@@ -17,6 +17,7 @@ struct ProspectsView: View {
     
     @EnvironmentObject var prospects: Prospects
     @State private var isShowingScanner = false
+    @State private var isSorted = false
     
     let filter: FilterType
     
@@ -45,16 +46,33 @@ struct ProspectsView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(filteredProspects) { prospect in
-                    VStack(alignment: .leading) {
-                        Text(prospect.name)
-                            .font(.headline)
-                        Text(prospect.emailAddress)
-                            .foregroundColor(.secondary)
+                ForEach(isSorted ? filteredProspects.sorted() : filteredProspects) { prospect in
+                    HStack {
+                        if prospect.isContacted {
+                            Image(systemName: "person.crop.circle.badge.checkmark")
+                                .frame(width: 40, height: 40)
+                        } else {
+                            Image(systemName: "person.crop.circle.badge.xmark")
+                                .frame(width: 40, height: 40)
+                        }
+                        VStack(alignment: .leading) {
+                            Text(prospect.name)
+                                .font(.headline)
+                            Text(prospect.emailAddress)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     .contextMenu {
                         Button(prospect.isContacted ? "Mark Uncontacted" : "Mark Contacted") {
                             self.prospects.toggle(prospect)
+                        }
+                        
+                        Button(action: {
+                            self.prospects.remove(prospect)
+                        }) {
+                            Text("Remove")
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
                         }
                         
                         if !prospect.isContacted {
@@ -66,18 +84,21 @@ struct ProspectsView: View {
                 }
             }
             .navigationBarTitle(title)
-            .navigationBarItems(trailing: Button(action: {
-                self.isShowingScanner = true
-//                let prospect = Prospect()
-//                prospect.name = "Paul Hudson"
-//                prospect.emailAddress = "paul@hackingwithswift.com"
-//                self.prospects.people.append(prospect)
-            }) {
-                Image(systemName: "qrcode.viewfinder")
-                Text("Scan")
-            })
+            .navigationBarItems(
+                leading: Button(action: {
+                    self.isSorted.toggle()
+                }) {
+                    Text("Sort")
+                },
+                trailing: Button(action: {
+                    self.isShowingScanner = true
+                }) {
+                    Image(systemName: "qrcode.viewfinder")
+                    Text("Scan")
+                }
+            )
             .sheet(isPresented: $isShowingScanner) {
-                CodeScannerView(codeTypes: [.qr], simulatedData: "Dmitry Reshetnik\ndmitry.reshetnik@icloud.com", completion: self.handleScan)
+                CodeScannerView(codeTypes: [.qr], simulatedData: "Alexandr Reznikov\na.reznikov@icloud.com", completion: self.handleScan)
             }
         }
     }

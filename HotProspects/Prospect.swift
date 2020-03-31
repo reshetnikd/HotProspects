@@ -8,11 +8,19 @@
 
 import SwiftUI
 
-class Prospect: Identifiable, Codable {
+class Prospect: Identifiable, Codable, Comparable {
     let id = UUID()
     var name = "Anonymous"
     var emailAddress = ""
     fileprivate(set) var isContacted = false
+    
+    static func < (lhs: Prospect, rhs: Prospect) -> Bool {
+        lhs.name < rhs.name
+    }
+    
+    static func == (lhs: Prospect, rhs: Prospect) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 class Prospects: ObservableObject {
@@ -31,20 +39,36 @@ class Prospects: ObservableObject {
         save()
     }
     
+    func remove(_ prospect: Prospect) {
+        people.removeAll(where: { $0.id == prospect.id })
+        save()
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
     private func save() {
+        let filename = getDocumentsDirectory().appendingPathComponent(Self.saveKey)
+        
         if let encoded = try? JSONEncoder().encode(people) {
-            UserDefaults.standard.set(encoded, forKey: Self.saveKey)
+            try? encoded.write(to: filename, options: [.atomicWrite, .completeFileProtection])
         }
     }
     
-    init() {
-        if let data = UserDefaults.standard.data(forKey: Self.saveKey) {
+    public func load() {
+        let filename = getDocumentsDirectory().appendingPathComponent(Self.saveKey)
+        
+        if let data = try? Data(contentsOf: filename) {
             if let decoded = try? JSONDecoder().decode([Prospect].self, from: data) {
                 self.people = decoded
                 return
             }
         }
-        
+    }
+    
+    init() {
         self.people = []
     }
 }
