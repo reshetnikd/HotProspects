@@ -67,18 +67,19 @@ struct ProspectsView: View {
                             self.prospects.toggle(prospect)
                         }
                         
-                        Button(action: {
-                            self.prospects.remove(prospect)
-                        }) {
-                            Text("Remove")
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                        }
-                        
                         if !prospect.isContacted {
                             Button("Remind Me") {
                                 self.addNotification(for: prospect)
                             }
+                        }
+                        
+                        Button(action: {
+                            self.prospects.remove(prospect)
+                        }) {
+                            Text("Remove")
+                                .foregroundColor(.red)
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
                         }
                     }
                 }
