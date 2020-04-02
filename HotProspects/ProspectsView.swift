@@ -50,10 +50,10 @@ struct ProspectsView: View {
                     HStack {
                         if prospect.isContacted {
                             Image(systemName: "person.crop.circle.badge.checkmark")
-                                .frame(width: 40, height: 40)
+                                .font(.system(size: UIFont.systemFontSize * 2, weight: .light))
                         } else {
                             Image(systemName: "person.crop.circle.badge.xmark")
-                                .frame(width: 40, height: 40)
+                                .font(.system(size: UIFont.systemFontSize * 2, weight: .light))
                         }
                         VStack(alignment: .leading) {
                             Text(prospect.name)
@@ -79,6 +79,7 @@ struct ProspectsView: View {
                             Text("Remove")
                                 .foregroundColor(.red)
                             Image(systemName: "trash")
+                                .font(.system(size: UIFont.systemFontSize, weight: .light))
                                 .foregroundColor(.red)
                         }
                     }
